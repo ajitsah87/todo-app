@@ -1,17 +1,35 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
 function page() {
   const [title, setTitle] = useState("");
   const [desc, setdesc] = useState("");
-  const [mainTask, setMainTask] = useState(()=>{
-    let todos= localStorage.getItem("todos")
-     let savedTodo = todos  ? JSON.parse(todos): []
-     return savedTodo
-  });
+
+  const [mainTask, setMainTask] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let todos = localStorage.getItem("todos");
+      try {
+        let savedTodo = JSON.parse(todos);
+        if (Array.isArray(savedTodo)) {
+          setMainTask(savedTodo);
+        } else {
+          setMainTask([]);
+        }
+      } catch (error) {
+        console.error("Error parsing todos from localStorage:", error);
+        setMainTask([]);
+      }
+    }
+  }, []);
+  
+
   useEffect(()=>{
     localStorage.setItem("todos",JSON.stringify(mainTask))
   },[mainTask])
+  
   const submitHandler = (e) => {
     e.preventDefault();
     if (!title || !desc  ) return 
@@ -29,20 +47,22 @@ function page() {
   if (mainTask.length > 0) {
     renderTask = mainTask.map((t, i) => {
       return (
-        <li key={i} className="flex items-center justify-between ">
-          <div className="flex items-center justify-between mb-5 w-2/3">
-            <h4 className="text-2xl font-semibold ">{t.title}</h4>
-            <h5 className="text-lg font-medium  ">{t.desc}</h5>
-          </div>
-          <button
-            onClick={() => {
-              deleteTaskHandler(i);
-            }}
-            className="bg-yellow-300 px-4 py-2 text-red-500 mb-6 rounded"
-          >
-            Delete
-          </button>
-        </li>
+        <ul key={i} className="flex items-center justify-between">
+          <li className="">
+            <div className="flex items-center justify-between mb-5 w-2/3">
+              <h4 className="text-2xl font-semibold ">{t.title}</h4>
+              <h5 className="text-lg font-medium  ">{t.desc}</h5>
+            </div>
+            <button
+              onClick={() => {
+                deleteTaskHandler(i);
+              }}
+              className="bg-yellow-300 px-4 py-2 text-red-500 mb-6 rounded"
+            >
+              Delete
+            </button>
+          </li>
+        </ul>
       );
     });
   }
@@ -79,7 +99,9 @@ function page() {
         </button>
       </form>
       <div className="bg-red-500 p-8">
-        <ul className="text-yellow-100 font-bold text-2xl">{renderTask}</ul>
+        <ul className="text-yellow-100 font-bold text-2xl">
+          <li>{renderTask}</li>
+          </ul>
       </div>
     </>
   );
