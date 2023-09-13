@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 function page() {
   const [title, setTitle] = useState("");
   const [desc, setdesc] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const [mainTask, setMainTask] = useState([]);
 
@@ -15,6 +16,7 @@ function page() {
         let savedTodo = JSON.parse(todos);
         if (Array.isArray(savedTodo)) {
           setMainTask(savedTodo);
+          setLoading(false)
         } else {
           setMainTask([]);
         }
@@ -43,7 +45,7 @@ function page() {
     copyTask.splice(i, 1);
     setMainTask(copyTask);
   };
-  let renderTask = <h2 className="text-center">No Task Available</h2>;
+  let renderTask = <h2 className="text-center"> {loading ? 'Loading..' : 'No Task Available'}</h2>;
   if (mainTask.length > 0) {
     renderTask = mainTask.map((t, i) => {
       return (
