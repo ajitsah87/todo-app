@@ -9,11 +9,11 @@ import { FaEdit, FaRegCheckSquare } from "react-icons/fa";
 
 const TodoApp = () => {
 
-  const initialDemoTodos = [
-    { title: "work", desc: "check email", complition: false },
-    { title: "works", desc: "check email", complition: false },
-    { title: "works", desc: "check emails", complition: false },
-  ];
+  // const initialDemoTodos = [
+  //   { title: "work", desc: "check email", complition: false },
+  //   { title: "works", desc: "check email", complition: false },
+  //   { title: "works", desc: "check emails", complition: false },
+  // ];
 
   const [title, setTitle] = useState("");
   const [desc, setdesc] = useState("");
@@ -94,7 +94,7 @@ const TodoApp = () => {
               animate={{opacity: 1, height: 'auto', scale: 1}}
               exit={{opacity: 0, height: 0, scale: .8}}
               transition={{opacity: {duration: .2}}}
-              key={`${todo.title}-${todo.desc}`}
+              key={todo.id}
               >
                 <div className="p-4  rounded-md mb-3 w-1/2 mx-auto gap-4 bg-amber-200 flex justify-between items-center">
                   <div className=" w-[90%]  break-words  overflow-x-scroll">

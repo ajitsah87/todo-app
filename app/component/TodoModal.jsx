@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import {motion} from 'framer-motion'
 import { ImCross } from "react-icons/im";
 import {toast} from 'sonner'
+import {v4 as uuid} from 'uuid'
+
 
 function TodoModal({setIsModalOpen, setMainTask, mainTask, title, setTitle, desc, setdesc, indexForEdit, setIndexForEdit}) {
 
@@ -9,7 +11,7 @@ function TodoModal({setIsModalOpen, setMainTask, mainTask, title, setTitle, desc
 
     if(indexForEdit === null) {
       if (!title || !desc  ) return toast.warning('All Fields are Required!!')
-      setMainTask(prev => [...prev, {title, desc, complition: false}])
+      setMainTask(prev => [...prev, {title, desc, complition: false, id: uuid()}])
     } else {
       const updatedTodo = [...mainTask]
       updatedTodo[indexForEdit] = {title, desc}
