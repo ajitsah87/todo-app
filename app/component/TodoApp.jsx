@@ -74,7 +74,7 @@ const TodoApp = () => {
       <div className="w-[min(1200px,100%-2rem)] mx-auto bg-slate-800 min-h-[500px] flex flex-col justify-center py-10">
         <button
           onClick={() => setIsModalOpen((prev) => !prev)}
-          className="mb-3 p-4 w-1/2 h-20 mx-auto relative rounded-md overflow-hidden"
+          className="mb-3 p-4 w-1/2 h-20 mx-auto relative rounded-md overflow-hidden max-md:w-11/12"
         >
           <span className="absolute inset-0 ">
             <CanvasBgAnimation />
@@ -96,7 +96,7 @@ const TodoApp = () => {
               transition={{opacity: {duration: .2}}}
               key={todo.id}
               >
-                <div className="p-4  rounded-md mb-3 w-1/2 mx-auto gap-4 bg-amber-200 flex justify-between items-center">
+                <div className="p-4  rounded-md mb-3 w-1/2 mx-auto gap-4 bg-amber-200 flex justify-between items-center  max-sm:flex-col max-md:w-11/12">
                   <div className=" w-[90%]  break-words  overflow-x-scroll">
                     <div
                       className={`text-xl font-black text-slate-800  ${
@@ -111,7 +111,7 @@ const TodoApp = () => {
                       {todo.desc}
                     </div>
                   </div>
-                  <div className="flex justify-center items-center gap-3">
+                  <div className="flex justify-center items-center gap-3  max-sm:w-full max-sm:justify-end">
                     <button onClick={() => deleteTaskHandler(i)}>
                       <MdDelete className="text-2xl" />
                     </button>
